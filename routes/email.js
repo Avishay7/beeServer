@@ -1,6 +1,11 @@
 const router = require("express").Router();
 const sendMail = require("../middlewares/sendMail");
 
+
+router.get("/", (req, res, next) => {
+  res.json({ msg: "Work from email" });
+});
+
 router.post("/", async (req, res) => {
   try {
     const email = await req.body.email;

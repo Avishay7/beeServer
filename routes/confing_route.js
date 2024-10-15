@@ -2,6 +2,7 @@
 const indexR = require("./index");
 const usersR = require("./users");
 const emailR = require("./email");
+const chatsR = require("./chats");
 
 exports.corsAccessControl = (app) => {
   app.all("*", function (req, res, next) {
@@ -20,6 +21,7 @@ exports.routesInit = (app) => {
   app.use("/", indexR);
   app.use("/users", usersR);
   app.use("/email", emailR);
+  app.use("/chats", chatsR);
   app.use((req, res) => {
     res.status(404).json({ msg_error: "Url not found , 404!" });
   });

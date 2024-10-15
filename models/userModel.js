@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema({
     verifiction: {
         type: Boolean, default: false
     },
+    level: {
+        type: String, default: "level1"
+    },
 });
 
 exports.UserModel = mongoose.model("users", userSchema);
@@ -41,6 +44,6 @@ exports.validateLogin = (_bodyReq) => {
 }
 
 exports.genToken = (_userId, _role) => {
-    let token = jwt.sign({ _id: _userId, role: _role }, process.env.JWT_SECRET, { expiresIn: "1440mins" });
+    let token = jwt.sign({ _id: _userId, role: _role }, process.env.JWT_SECRET, { expiresIn: "1440000mins" });
     return token;
 }
