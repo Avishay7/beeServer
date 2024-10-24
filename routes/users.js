@@ -177,6 +177,26 @@ router.patch("/changePass", async (req, res) => {
   }
 })
 
+// Update level
+router.put("/level", auth , async (req, res) => {
+  let thisLevel = req.body.level; 
+  console.log(thisLevel);
+  let token = req.header("x-api-key");
+  let decodeToken = jwt.verify(token, process.env.JWT_SECRET);
+  let token_id = decodeToken._id;
+  try {
+    let user = await UserModel.findOne({ _id: token_id });
+    user.level = thisLevel ;
+    let updateData = await UserModel.updateOne({ _id: token_id }, user);
+    res.status(200).json(updateData);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+
+})
+
+
 
 // Update for user
 router.put("/edit", auth, async (req, res) => {

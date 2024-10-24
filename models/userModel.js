@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean, default: false
     },
     level: {
-        type: String, default: "level1"
+        type: String, default: "beginner"
     },
 });
 
