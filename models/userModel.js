@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
     level: {
         type: String, default: "beginner"
     },
+    avatar: {
+        type: String, default: "pik1"
+    },
 });
 
 exports.UserModel = mongoose.model("users", userSchema);

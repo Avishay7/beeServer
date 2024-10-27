@@ -196,6 +196,25 @@ router.put("/level", auth , async (req, res) => {
 
 })
 
+// Update avatar
+router.put("/avatar", auth , async (req, res) => {
+  let thisAvatar = req.body.avatar; 
+  console.log(thisAvatar);
+  let token = req.header("x-api-key");
+  let decodeToken = jwt.verify(token, process.env.JWT_SECRET);
+  let token_id = decodeToken._id;
+  try {
+    let user = await UserModel.findOne({ _id: token_id });
+    user.avatar = thisAvatar ;
+    let updateData = await UserModel.updateOne({ _id: token_id }, user);
+    res.status(200).json(updateData);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send(err);
+  }
+
+})
+
 
 
 // Update for user
