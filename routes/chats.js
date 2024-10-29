@@ -1,18 +1,33 @@
 var express = require("express");
 var router = express.Router();
 const OpenAI = require("openai");
-const { auth } = require("../middlewares/auth");
+const { auth, authAdmin } = require("../middlewares/auth");
 const jwt = require("jsonwebtoken");
 const { ChatModel } = require("../models/chatModel");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
+
 });
 
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
   res.json({ msg: "ChatGPT API Integration!" });
+});
+
+
+
+
+router.get("/allChats/:userId",authAdmin , async (req, res) => {
+  try {
+    let userId = req.params.userId;
+    let data = await ChatModel.find({ user_id: userId });
+    res.json(data);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
 });
 
 
