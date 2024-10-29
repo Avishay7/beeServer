@@ -7,19 +7,19 @@ const { ChatModel } = require("../models/chatModel");
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
-
 });
 
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
   res.json({ msg: "ChatGPT API Integration!" });
+
 });
 
 
 
 
-router.get("/allChats/:userId",authAdmin , async (req, res) => {
+router.get("/allChats/:userId", auth, async (req, res) => {
   try {
     let userId = req.params.userId;
     let data = await ChatModel.find({ user_id: userId });
@@ -50,7 +50,7 @@ router.post("/", async (req, res) => {
 
 
 // add Chat to DB
-router.post("/addChat",auth, async (req, res) => {
+router.post("/addChat", auth, async (req, res) => {
   let token = req.header("x-api-key");
   let decodeToken = jwt.verify(token, process.env.JWT_SECRET);
   let token_id = decodeToken._id;
