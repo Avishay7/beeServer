@@ -92,7 +92,7 @@ router.post("/login", async (req, res) => {
     if (req.body.password != user.password) {
       return res.status(401).json({ err: "Email or password is wrong" });
     }
-    res.json({ token: genToken(user._id, user.role) });
+    res.json({ token: genToken(user._id, user.role ) ,role:  user.role});
   }
   catch (err) {
     console.log(err);
